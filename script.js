@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const unsplashAccessKey = 'YOUR_UNSPLASH_ACCESS_KEY';
+    const unsplashAccessKey = '2YHCIylev3KFxeBcNLpnhXfBr3AFW1MddiZXlSVBlzw';
     const quoteAPI = 'https://api.quotable.io/random';
 
     // Function to fetch daily inspirational quote
