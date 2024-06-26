@@ -1,17 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const unsplashAccessKey = '2YHCIylev3KFxeBcNLpnhXfBr3AFW1MddiZXlSVBlzw';
+    const unsplashAccessKey = 'YOUR_UNSPLASH_ACCESS_KEY';
     const quoteAPI = 'https://api.quotable.io/random';
 
     // Function to fetch daily inspirational quote
     async function fetchQuote() {
         try {
             const response = await fetch(quoteAPI);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             const quoteText = `"${data.content}" - ${data.author}`;
             return quoteText;
         } catch (error) {
             console.error('Error fetching the quote:', error);
-            return 'Error fetching the quote.';
+            return 'An inspirational quote will appear here daily.';
         }
     }
 
@@ -19,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     async function fetchImage() {
         try {
             const response = await fetch(`https://api.unsplash.com/photos/random?query=inspiration&client_id=${unsplashAccessKey}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
             return data.urls.regular;
         } catch (error) {
