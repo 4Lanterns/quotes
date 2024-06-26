@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const unsplashAccessKey = '2YHCIylev3KFxeBcNLpnhXfBr3AFW1MddiZXlSVBlzw';
-    const quoteAPI = 'https://api.quotable.io/random';
+    const unsplashAccessKey = '2YHCIylev3KFxeBcNLpnhXfBr3AFW1MddiZXlSVBlzw'; // Replace with your actual Unsplash Access Key
+    const quoteAPI = 'https://type.fit/api/quotes';
 
     // Function to fetch daily inspirational quote
     async function fetchQuote() {
@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            const quoteText = `"${data.content}" - ${data.author}`;
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const quote = data[randomIndex];
+            const quoteText = `"${quote.text}" - ${quote.author || 'Unknown'}`;
             return quoteText;
         } catch (error) {
             console.error('Error fetching the quote:', error);
