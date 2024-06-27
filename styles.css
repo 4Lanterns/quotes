@@ -4,17 +4,21 @@ body {
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    margin-top: 50px;
+    text-align: center;
 }
 
 .quote-container {
     position: relative;
     display: inline-block;
     text-align: center;
-    width: 100%;
+    width: 90%;
     max-width: 600px;
 }
 
