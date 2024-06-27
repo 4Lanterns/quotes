@@ -14,7 +14,7 @@ body {
     text-align: center;
 }
 
-.quote-container {
+.quote-container, .verse-container {
     position: relative;
     display: inline-block;
     text-align: center;
@@ -22,12 +22,12 @@ body {
     max-width: 600px;
 }
 
-#quoteImage {
+#quoteImage, #verseImage {
     width: 100%;
     height: auto;
 }
 
-#quoteText {
+#quoteText, #verseText {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -41,4 +41,23 @@ body {
     border-radius: 10px;
     width: 90%;
     box-sizing: border-box;
+}
+
+/* Adjustments for larger screens */
+@media (min-width: 600px) {
+    #quoteText, #verseText {
+        font-size: 2vw;
+    }
+}
+
+@media (min-width: 900px) {
+    #quoteText, #verseText {
+        font-size: 1.5vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    #quoteText, #verseText {
+        font-size: 1.2vw;
+    }
 }
