@@ -1,49 +1,56 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const unsplashAccessKey = '2YHCIylev3KFxeBcNLpnhXfBr3AFW1MddiZXlSVBlzw'; // Replace with your actual Unsplash Access Key
-    const quoteAPI = 'https://type.fit/api/quotes';
+document.addEventListener("DOMContentLoaded", () => {
+    const proxyUrl = 'https://api.allorigins.win/get?url=';
+    const targetUrl = encodeURIComponent('https://www.brainyquote.com/quote_of_the_day');
 
-    // Function to fetch daily inspirational quote
-    async function fetchQuote() {
-        try {
-            const response = await fetch(quoteAPI);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+    fetch(proxyUrl + targetUrl)
+        .then(response => response.json())
+        .then(data => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.contents, 'text/html');
+
+            console.log('Fetched HTML:', doc.documentElement.innerHTML);
+
+            const imageElement = doc.querySelector('img.p-qotd');
+            console.log('Image Element:', imageElement);
+
+            if (imageElement) {
+                const srcset = imageElement.getAttribute('srcset');
+                console.log('Srcset:', srcset);
+
+                const srcsetParts = srcset.split(',').map(part => part.trim());
+                const highResImage = srcsetParts.find(part => part.endsWith('1200w')).split(' ')[0];
+                console.log('High Res Image URL:', highResImage);
+
+                if (highResImage) {
+                    const fullUrl = 'https://www.brainyquote.com' + highResImage;
+                    console.log('Full URL:', fullUrl);
+                    const img = document.getElementById('quote-image');
+                    img.src = fullUrl;
+                    img.style.display = 'block';
+
+                    const text = document.getElementById('quote-text');
+                    text.innerHTML = imageElement.alt;
+                    adjustTextSize(text, img);
+                } else {
+                    document.getElementById('quote-text').textContent = "Quote image not found.";
+                }
+            } else {
+                document.getElementById('quote-text').textContent = "Quote image not found.";
             }
-            const data = await response.json();
-            const randomIndex = Math.floor(Math.random() * data.length);
-            const quote = data[randomIndex];
-            const quoteText = `"${quote.text}" - ${quote.author || 'Unknown'}`;
-            return quoteText;
-        } catch (error) {
-            console.error('Error fetching the quote:', error);
-            return 'An inspirational quote will appear here daily.';
-        }
-    }
-
-    // Function to fetch a random image from Unsplash
-    async function fetchImage() {
-        try {
-            const response = await fetch(`https://api.unsplash.com/photos/random?query=inspiration&client_id=${unsplashAccessKey}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            return data.urls.regular;
-        } catch (error) {
-            console.error('Error fetching the image:', error);
-            return 'https://via.placeholder.com/600x400';
-        }
-    }
-
-    // Function to update the quote and image on the page
-    async function updateQuoteAndImage() {
-        const quoteText = await fetchQuote();
-        const imageUrl = await fetchImage();
-
-        document.getElementById('quoteText').innerText = quoteText;
-        document.getElementById('quoteImage').src = imageUrl;
-    }
-
-    // Initialize the quote and image
-    updateQuoteAndImage();
+        })
+        .catch(error => {
+            console.error('Error fetching the quote of the day:', error);
+            document.getElementById('quote-text').textContent = "Failed to load quote.";
+        });
 });
+
+const adjustTextSize = (textElement, imgElement) => {
+    const containerWidth = imgElement.clientWidth;
+    const containerHeight = imgElement.clientHeight;
+    textElement.style.fontSize = `${containerWidth / 20}px`;
+
+    while (textElement.scrollWidth > containerWidth || textElement.scrollHeight > containerHeight) {
+        const fontSize = parseFloat(window.getComputedStyle(textElement).fontSize);
+        textElement.style.fontSize = `${fontSize - 1}px`;
+    }
+};
