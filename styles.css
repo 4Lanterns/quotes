@@ -1,35 +1,65 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    background-color: #e0f7fa;
+    color: #5a5a5a;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    margin-top: 50px;
-}
-
-.quote-container {
-    position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     text-align: center;
 }
 
-#quoteImage {
+header {
+    background-color: #80deea;
+    padding: 20px;
     width: 100%;
-    max-width: 600px;
-    height: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#quoteText {
+h1 {
+    margin: 0;
+    color: #0277bd;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+#quote-container {
+    position: relative;
+    background-color: #e0f7fa;
+    border: 2px solid #80deea;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#quote-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+#quote-text {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
-    font-size: 24px;
-    font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    font-size: calc(1.5em + 1vw);
+    text-align: center;
+    width: 90%;
+    word-wrap: break-word;
 }
