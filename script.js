@@ -1,6 +1,6 @@
   //quotes are here
   
-  let data = [
+  const quotes = [
       {
         text:
           "Genius is one percent inspiration and ninety-nine percent perspiration.",
@@ -7574,37 +7574,14 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     const unsplashAccessKey = '2YHCIylev3KFxeBcNLpnhXfBr3AFW1MddiZXlSVBlzw'; // Replace with your actual Unsplash Access Key
-    const myBody = document.getElementById("body");
-    const textReceipt = document.getElementById("text");
-    const authorReceipt = document.getElementById("author");
-    const btn = document.getElementById("new-quote");
 
-    // Function to generate daily inspirational quote
-    function newQuote(){
-      let color = "#";
-    color += Math.random().toString(16).slice(2, 8);
-    console.log(color);
-      let index = Math.floor(Math.random() * data.length);
-
-      let quoteContent = data[index].text;
-      index;
-
-      let authorContent = "";
-
-      if (data[index].author == null) {
-        authorContent = "Unknown";
-      } else {
-        authorContent = data[index].author;
-      }
-
-      textReceipt.innerHTML = quoteContent;
-      authorReceipt.innerHTML = authorContent;
-
-      myBody.style.backgroundColor = color;
-      text.style.color = color;
-      author.style.color = color;
+    // Function to get a random quote from the predefined list
+    function getRandomQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const quote = quotes[randomIndex];
+        return `"${quote.text}" - ${quote.author || 'Unknown'}`;
     }
-    
+
     // Function to fetch a random image from Unsplash
     async function fetchImage() {
         try {
@@ -7622,7 +7599,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to update the quote and image on the page
     async function updateQuoteAndImage() {
-        const quoteText = await fetchQuote();
+        const quoteText = getRandomQuote();
         const imageUrl = await fetchImage();
 
         document.getElementById('quoteText').innerText = quoteText;
