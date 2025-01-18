@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const unsplashAccessKey = '2YHCIylev3KFxeBcNLpnhXfBr3AFW1MddiZXlSVBlzw'; // Replace with your actual Unsplash Access Key
-    const quoteAPI = 'https://api.api-ninjas.com/v1/quotes';
+    const quoteAPI = 'https://api.quotable.io';
 
     // Function to fetch daily inspirational quote
     async function fetchQuote() {
